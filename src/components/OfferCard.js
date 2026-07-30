@@ -7,9 +7,9 @@ export default function OfferCard({ offer }) {
   const hasOfferDates = offer.start_date || offer.end_date;
 
   return (
-    <article className="flex h-48 w-full flex-col overflow-hidden rounded-2xl bg-primary/15 p-4 shadow-sm">
-      <div className="grid min-h-0 flex-1 grid-cols-[minmax(0,1fr)_40%] gap-4">
-        <div className="flex min-w-0 flex-col items-start overflow-hidden">
+    <article className="flex h-full w-full flex-col overflow-hidden rounded-2xl bg-primary/15 p-4 shadow-sm">
+      <div className="grid grid-cols-[minmax(0,1fr)_6rem] gap-4">
+        <div className="flex min-w-0 flex-col items-start">
           <span
             className={`rounded-full px-2.5 py-1 text-[9px] font-semibold uppercase tracking-wide text-white ${
               isExpired ? "bg-tertiary/70" : "bg-primary"
@@ -18,18 +18,18 @@ export default function OfferCard({ offer }) {
             {isExpired ? "Expired" : "Special offer"}
           </span>
 
-          <h2 className="mt-3 line-clamp-2 font-serif text-lg font-semibold leading-5 text-tertiary">
+          <h2 className="mt-3 font-serif text-xl font-semibold leading-6 text-tertiary">
             {offer.title}
           </h2>
 
           {offer.description && (
-            <p className="mt-1.5 line-clamp-2 text-xs leading-4 text-tertiary/70">
+            <p className="mt-2 text-sm leading-5 text-tertiary/70">
               {offer.description}
             </p>
           )}
 
           {hasOfferDates && (
-            <p className="mt-2 flex flex-wrap items-center gap-1 text-[10px] leading-4 text-tertiary/55">
+            <p className="mt-2 flex flex-wrap items-center gap-1 text-xs leading-4 text-tertiary/55">
               {offer.start_date && (
                 <time dateTime={offer.start_date}>
                   {formatDate(offer.start_date)}
@@ -43,19 +43,19 @@ export default function OfferCard({ offer }) {
           )}
         </div>
 
-        <div className="relative aspect-square w-full max-w-28 justify-self-end overflow-hidden rounded-xl bg-neutral">
+        <div className="relative size-24 justify-self-end overflow-hidden rounded-xl bg-neutral">
           <Image
             src={offer.image_url}
             alt={offer.title}
             fill
-            sizes="(max-width: 448px) 36vw, 112px"
+            sizes="96px"
             className="object-cover"
           />
         </div>
       </div>
 
-      <div className="mt-auto flex shrink-0 items-baseline gap-2 pt-3">
-        <span className="font-serif text-lg font-semibold text-primary">
+      <div className="mt-auto flex items-baseline gap-2 pt-4">
+        <span className="font-serif text-xl font-semibold text-primary">
           {formatPrice(offer.new_price)}
         </span>
         {hasDiscount && (

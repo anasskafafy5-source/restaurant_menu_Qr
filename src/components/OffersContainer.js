@@ -59,11 +59,24 @@ function OffersContainer({ offers }) {
         <>
           <div className="grid grid-cols-[2rem_minmax(0,1fr)_2rem] items-center gap-2">
             <ArrowButton direction="left" onClick={handlePrevious} />
-            <div
-              key={currentOffer.id ?? index}
-              className="offer-card-enter min-w-0"
-            >
-              <OfferCard offer={currentOffer} />
+            <div className="grid min-w-0">
+              {theOffers.map((offer, offerIndex) => {
+                const isCurrent = offerIndex === index;
+
+                return (
+                  <div
+                    key={offer.id ?? offerIndex}
+                    className={`col-start-1 row-start-1 min-w-0 ${
+                      isCurrent
+                        ? "visible offer-card-enter"
+                        : "invisible pointer-events-none"
+                    }`}
+                    aria-hidden={!isCurrent}
+                  >
+                    <OfferCard offer={offer} />
+                  </div>
+                );
+              })}
             </div>
             <ArrowButton direction="right" onClick={handleNext} />
           </div>

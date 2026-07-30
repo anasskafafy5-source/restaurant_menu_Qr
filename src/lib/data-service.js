@@ -30,6 +30,21 @@ export async function getCategories() {
   return data;
 }
 
+export async function getCategoriesWithProducts() {
+  const { data, error } = await supabase.from("categories").select(`
+    *,
+    products (*)
+  `);
+
+  if (error) {
+    throw new Error(
+      `Failed to fetch categories with products: ${error.message}`,
+    );
+  }
+
+  return data;
+}
+
 export async function getOffers() {
   const { data, error } = await supabase
     .from("offers")
