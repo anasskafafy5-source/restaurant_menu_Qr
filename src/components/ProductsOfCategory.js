@@ -1,4 +1,4 @@
-import MenuProductCard from "./MenuProductCard";
+import ProductCardCollection from "./ProductCardCollection";
 import SectionHeading from "./SectionHeading";
 
 function ProductsOfCategory({ category }) {
@@ -14,13 +14,11 @@ function ProductsOfCategory({ category }) {
       <SectionHeading id={`${headingId}-title`} title={category.name} />
 
       {products.length > 0 ? (
-        <ul className="mt-5 grid gap-3 md:grid-cols-2 md:gap-4">
-          {products.map((product) => (
-            <li key={product.id}>
-              <MenuProductCard product={product} />
-            </li>
-          ))}
-        </ul>
+        <ProductCardCollection
+          products={products}
+          variant="menu"
+          categoryName={category.name}
+        />
       ) : (
         <p className="mt-5 text-center text-sm text-tertiary/50">
           No products available in this category.

@@ -6,7 +6,7 @@ import ProductsByCategoryArea from "@/components/ProductsByCategoryArea";
 import Spinner from "@/components/Spinner";
 import { Suspense } from "react";
 
-export const revalidate = 60;
+export const revalidate = 0;
 
 export default function Home() {
   return (

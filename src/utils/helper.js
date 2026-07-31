@@ -48,6 +48,23 @@ export function formatPrice(price) {
   }).format(numericPrice);
 }
 
+export function getProductPricing(product) {
+  const discount = Number(product?.discount);
+  const regularPrice = product?.regular_price;
+  const discountedPrice = product?.total_price;
+  const hasDiscount =
+    Number.isFinite(discount) &&
+    discount > 0 &&
+    discountedPrice != null &&
+    Number(discountedPrice) < Number(regularPrice);
+
+  return {
+    hasDiscount,
+    regularPrice,
+    finalPrice: hasDiscount ? discountedPrice : regularPrice,
+  };
+}
+
 export function formatDate(date) {
   const parsedDate = parseDate(date);
 

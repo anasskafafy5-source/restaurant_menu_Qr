@@ -1,28 +1,22 @@
-import Image from "next/image";
-import { formatPrice } from "@/utils/helper";
+import { formatPrice, getProductPricing } from "@/utils/helper";
+import ProductImage from "./ProductImage";
 
-function MenuProductCard({ product }) {
-  const image = product.image_url ?? product.image;
-  const discount = Number(product.discount);
-  const hasDiscount =
-    Number.isFinite(discount) &&
-    discount > 0 &&
-    product.total_price != null &&
-    Number(product.total_price) < Number(product.regular_price);
-  const price = hasDiscount ? product.total_price : product.regular_price;
+function MenuProductCard({ product, onClick }) {
+  const { finalPrice, hasDiscount, regularPrice } =
+    getProductPricing(product);
 
   return (
-    <article className="flex min-h-36 gap-3 rounded-2xl border border-tertiary/5 bg-white p-3 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-md sm:min-h-40 sm:gap-4 sm:p-4">
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={`View details for ${product.name}`}
+      className="flex min-h-36 w-full cursor-pointer gap-3 rounded-2xl border border-tertiary/5 bg-white p-3 text-left shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-md active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:min-h-40 sm:gap-4 sm:p-4"
+    >
       <div className="relative size-20 shrink-0 self-start overflow-hidden rounded-xl bg-neutral sm:size-24">
-        {image && (
-          <Image
-            src={image}
-            alt={product.name}
-            fill
-            sizes="(max-width: 640px) 80px, 96px"
-            className="object-cover"
-          />
-        )}
+        <ProductImage
+          product={product}
+          sizes="(max-width: 640px) 80px, 96px"
+        />
       </div>
 
       <div className="flex min-w-0 flex-1 flex-col">
@@ -58,17 +52,17 @@ function MenuProductCard({ product }) {
         <div className="mt-auto pt-3">
           <div className="flex flex-wrap items-baseline gap-2">
             <span className="font-serif text-lg font-semibold text-primary">
-              {formatPrice(price)}
+              {formatPrice(finalPrice)}
             </span>
             {hasDiscount && (
               <span className="text-[10px] text-tertiary/40 line-through">
-                {formatPrice(product.regular_price)}
+                {formatPrice(regularPrice)}
               </span>
             )}
           </div>
         </div>
       </div>
-    </article>
+    </button>
   );
 }
 

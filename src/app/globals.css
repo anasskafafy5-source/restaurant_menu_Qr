@@ -42,8 +42,25 @@ body {
   animation: offer-card-enter 300ms ease-out both;
 }
 
+@keyframes modal-panel-enter {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modal-panel-enter {
+  animation: modal-panel-enter 220ms ease-out both;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .offer-card-enter {
+  .offer-card-enter,
+  .modal-panel-enter {
     animation: none;
   }
 }

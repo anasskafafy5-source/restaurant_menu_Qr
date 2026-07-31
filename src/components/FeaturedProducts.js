@@ -1,4 +1,4 @@
-import FeaturedCardProduct from "./FeaturedCardProduct";
+import ProductCardCollection from "./ProductCardCollection";
 
 function FeaturedProducts({ products }) {
   const featuredProducts = products.filter((product) => product.is_featured);
@@ -23,16 +23,7 @@ function FeaturedProducts({ products }) {
           </span>
         </div>
 
-        <ul className="mt-5 flex items-stretch snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 sm:gap-5 sm:px-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {featuredProducts.map((product) => (
-            <li
-              key={product.id}
-              className="flex w-[78vw] max-w-[19rem] shrink-0 snap-start sm:w-72 lg:w-[19rem]"
-            >
-              <FeaturedCardProduct product={product} />
-            </li>
-          ))}
-        </ul>
+        <ProductCardCollection products={featuredProducts} variant="featured" />
       </div>
     </section>
   );
