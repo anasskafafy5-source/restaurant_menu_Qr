@@ -10,25 +10,25 @@ export async function getSettings() {
   return data;
 }
 
-export async function getProducts() {
-  const { data, error } = await supabase.from("products").select("*");
+// export async function getProducts() {
+//   const { data, error } = await supabase.from("products").select("*");
 
-  if (error) {
-    throw new Error(`Failed to fetch products: ${error.message}`);
-  }
+//   if (error) {
+//     throw new Error(`Failed to fetch products: ${error.message}`);
+//   }
 
-  return data;
-}
+//   return data;
+// }
 
-export async function getCategories() {
-  const { data, error } = await supabase.from("categories").select("*");
+// export async function getCategories() {
+//   const { data, error } = await supabase.from("categories").select("*");
 
-  if (error) {
-    throw new Error(`Failed to fetch categories: ${error.message}`);
-  }
+//   if (error) {
+//     throw new Error(`Failed to fetch categories: ${error.message}`);
+//   }
 
-  return data;
-}
+//   return data;
+// }
 
 export async function getCategoriesWithProducts() {
   const { data, error } = await supabase.from("categories").select(`

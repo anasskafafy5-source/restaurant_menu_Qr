@@ -27,8 +27,10 @@ function Modal({
     document.body.style.overflow = "hidden";
 
     const focusFrame = window.requestAnimationFrame(() => {
-      const firstFocusableElement = panel?.querySelector(FOCUSABLE_ELEMENTS);
-      firstFocusableElement?.focus();
+      if (panel) {
+        panel.scrollTop = 0;
+        panel.focus({ preventScroll: true });
+      }
     });
 
     function handleKeyDown(event) {
@@ -55,7 +57,10 @@ function Modal({
       const firstElement = focusableElements[0];
       const lastElement = focusableElements.at(-1);
 
-      if (event.shiftKey && document.activeElement === firstElement) {
+      if (document.activeElement === panel) {
+        event.preventDefault();
+        (event.shiftKey ? lastElement : firstElement).focus();
+      } else if (event.shiftKey && document.activeElement === firstElement) {
         event.preventDefault();
         lastElement.focus();
       } else if (!event.shiftKey && document.activeElement === lastElement) {

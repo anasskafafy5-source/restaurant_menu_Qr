@@ -1,10 +1,21 @@
 import Image from "next/image";
-import { formatDate, formatPrice, isDateExpired } from "@/utils/helper";
+import {
+  formatDate,
+  formatPrice,
+  isDateExpired,
+  isDateUpcoming,
+} from "@/utils/helper";
 
 export default function OfferCard({ offer }) {
   const hasDiscount = offer.old_price && offer.old_price !== offer.new_price;
-  const isExpired = isDateExpired(offer.end_date);
+  const isComingSoon = isDateUpcoming(offer.start_date);
+  const isExpired = !isComingSoon && isDateExpired(offer.end_date);
   const hasOfferDates = offer.start_date || offer.end_date;
+  const statusLabel = isComingSoon
+    ? "Coming soon"
+    : isExpired
+      ? "Expired"
+      : "Special offer";
 
   return (
     <article className="flex h-full w-full flex-col overflow-hidden rounded-2xl bg-primary/15 p-4 shadow-sm">
@@ -15,7 +26,7 @@ export default function OfferCard({ offer }) {
               isExpired ? "bg-tertiary/70" : "bg-primary"
             }`}
           >
-            {isExpired ? "Expired" : "Special offer"}
+            {statusLabel}
           </span>
 
           <h2 className="mt-3 font-serif text-xl font-semibold leading-6 text-tertiary">
@@ -30,14 +41,27 @@ export default function OfferCard({ offer }) {
 
           {hasOfferDates && (
             <p className="mt-2 flex flex-wrap items-center gap-1 text-xs leading-4 text-tertiary/55">
-              {offer.start_date && (
-                <time dateTime={offer.start_date}>
-                  {formatDate(offer.start_date)}
-                </time>
-              )}
-              {offer.start_date && offer.end_date && <span>–</span>}
-              {offer.end_date && (
-                <time dateTime={offer.end_date}>{formatDate(offer.end_date)}</time>
+              {isComingSoon ? (
+                <>
+                  <span>Coming soon on</span>
+                  <time dateTime={offer.start_date}>
+                    {formatDate(offer.start_date)}
+                  </time>
+                </>
+              ) : (
+                <>
+                  {offer.start_date && (
+                    <time dateTime={offer.start_date}>
+                      {formatDate(offer.start_date)}
+                    </time>
+                  )}
+                  {offer.start_date && offer.end_date && <span>–</span>}
+                  {offer.end_date && (
+                    <time dateTime={offer.end_date}>
+                      {formatDate(offer.end_date)}
+                    </time>
+                  )}
+                </>
               )}
             </p>
           )}

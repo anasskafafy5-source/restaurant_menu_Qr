@@ -3,32 +3,38 @@ import Header from "@/components/Header";
 import MainProducts from "@/components/MainProducts";
 import Offers from "@/components/Offers";
 import ProductsByCategoryArea from "@/components/ProductsByCategoryArea";
-import Spinner from "@/components/Spinner";
+import CategoriesSkeleton from "@/components/skeleton-loading/CategoriesSkeleton";
+import FeaturedProductsSkeleton from "@/components/skeleton-loading/FeaturedProductsSkeleton";
+import HeaderSkeleton from "@/components/skeleton-loading/HeaderSkeleton";
+import OffersSkeleton from "@/components/skeleton-loading/OffersSkeleton";
+import ProductsByCategorySkeleton from "@/components/skeleton-loading/ProductsByCategorySkeleton";
 import { Suspense } from "react";
 
-export const revalidate = 0;
+export const revalidate = 60;
 
 export default function Home() {
   return (
     <>
       {/* Header */}
-      <Suspense fallback={<Spinner />}>
+      <Suspense fallback={<HeaderSkeleton />}>
         <Header />
       </Suspense>
       {/* Offer Area */}
-      <Suspense fallback={<Spinner />}>
+      <Suspense fallback={<OffersSkeleton />}>
         <Offers />
       </Suspense>
       {/* Featured_Products */}
-      <Suspense fallback={<Spinner />}>
+      <Suspense fallback={<FeaturedProductsSkeleton />}>
         <MainProducts />
       </Suspense>
       {/* Categories Area */}
-      <Suspense fallback={<Spinner />}>
+      <Suspense fallback={<CategoriesSkeleton />}>
         <CategoryArea />
       </Suspense>
       {/* Products Area by category */}
-      <ProductsByCategoryArea />
+      <Suspense fallback={<ProductsByCategorySkeleton />}>
+        <ProductsByCategoryArea />
+      </Suspense>
     </>
   );
 }

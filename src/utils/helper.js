@@ -84,3 +84,9 @@ export function isDateExpired(date) {
 
   return parsedDate ? parsedDate.getTime() < Date.now() : false;
 }
+
+export function isDateUpcoming(date) {
+  const parsedDate = parseDate(date);
+
+  return parsedDate ? parsedDate.getTime() > Date.now() : false;
+}

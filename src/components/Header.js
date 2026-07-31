@@ -6,7 +6,7 @@ async function Header() {
 
   return (
     <header>
-      <HeaderImages cover={data.cover} logo={data.logo} />
+      <HeaderImages cover={data.cover} logo={data.logo} name={data.name} />
 
       {/* Restaurant information */}
       <div className="px-6 pb-8 pt-5 text-center">
