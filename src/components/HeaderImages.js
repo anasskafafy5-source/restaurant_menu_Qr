@@ -140,22 +140,22 @@ export default function HeaderImages({ cover, logo, name }) {
 
   return (
     // the images
-    <div className="relative pb-12">
-      <div className="relative aspect-[4/3] w-full overflow-hidden bg-neutral">
+    <div className="relative pb-12 md:mx-auto md:max-w-6xl md:px-6 md:pb-14 md:pt-6">
+      <div className="relative aspect-[4/3] w-full overflow-hidden bg-neutral md:aspect-[16/7] md:rounded-3xl md:shadow-sm">
         <SafeHeaderImage
           src={cover}
           alt={`${restaurantName} cover`}
           preload
-          sizes="100vw"
+          sizes="(max-width: 767px) 100vw, (max-width: 1152px) calc(100vw - 48px), 1104px"
           fallback={<CoverFallback />}
         />
       </div>
 
-      <div className="absolute bottom-0 left-1/2 size-24 -translate-x-1/2 overflow-hidden rounded-full border-4 border-white bg-white shadow-lg">
+      <div className="absolute bottom-0 left-1/2 size-24 -translate-x-1/2 overflow-hidden rounded-full border-4 border-white bg-white shadow-lg md:size-28">
         <SafeHeaderImage
           src={logo}
           alt={`${restaurantName} logo`}
-          sizes="96px"
+          sizes="(max-width: 767px) 96px, 112px"
           fallback={<LogoFallback name={restaurantName} />}
         />
       </div>

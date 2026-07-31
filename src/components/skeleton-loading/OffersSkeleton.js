@@ -7,7 +7,7 @@ function OffersSkeleton() {
     >
       <div
         aria-hidden="true"
-        className="mx-auto min-h-56 max-w-sm animate-pulse rounded-2xl bg-primary/10 p-4 shadow-sm"
+        className="mx-auto flex h-64 max-w-sm animate-pulse flex-col rounded-2xl bg-primary/10 p-4 shadow-sm"
       >
         <div className="grid grid-cols-[minmax(0,1fr)_6rem] gap-4">
           <div>
@@ -19,7 +19,7 @@ function OffersSkeleton() {
           </div>
           <div className="size-24 rounded-xl bg-tertiary/10" />
         </div>
-        <div className="mt-5 h-6 w-20 rounded-full bg-primary/20" />
+        <div className="mt-auto h-6 w-20 rounded-full bg-primary/20" />
       </div>
     </section>
   );

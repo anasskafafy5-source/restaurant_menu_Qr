@@ -1,9 +1,14 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  getDelayUntilNextRestaurantDate,
+  getRestaurantDate,
+} from "@/utils/offerDateHelpers";
 import OfferCard from "./OfferCard";
+import OfferDetailsModal from "./OfferDetailsModal";
 
-function OffersContainer({ offers }) {
+function OffersContainer({ offers, initialRestaurantDate }) {
   const theOffers = useMemo(
     () => offers.filter((offer) => offer.is_active),
     [offers],
@@ -11,11 +16,37 @@ function OffersContainer({ offers }) {
 
   const [index, setIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [selectedOffer, setSelectedOffer] = useState(null);
+  const [restaurantDate, setRestaurantDate] = useState(initialRestaurantDate);
   const offerCount = theOffers.length;
   const currentOffer = theOffers.at(index);
 
   useEffect(() => {
-    if (offerCount <= 1 || isPaused) {
+    let dateBoundaryTimer;
+
+    function updateRestaurantDate() {
+      const now = new Date();
+      const currentRestaurantDate = getRestaurantDate(now);
+
+      setRestaurantDate((previousDate) =>
+        previousDate === currentRestaurantDate
+          ? previousDate
+          : currentRestaurantDate,
+      );
+
+      dateBoundaryTimer = window.setTimeout(
+        updateRestaurantDate,
+        getDelayUntilNextRestaurantDate(now),
+      );
+    }
+
+    updateRestaurantDate();
+
+    return () => window.clearTimeout(dateBoundaryTimer);
+  }, []);
+
+  useEffect(() => {
+    if (offerCount <= 1 || isPaused || selectedOffer) {
       return undefined;
     }
 
@@ -24,7 +55,11 @@ function OffersContainer({ offers }) {
     }, 3000);
 
     return () => window.clearInterval(autoplay);
-  }, [isPaused, offerCount]);
+  }, [isPaused, offerCount, selectedOffer]);
+
+  const handleCloseDetails = useCallback(() => {
+    setSelectedOffer(null);
+  }, []);
 
   if (!currentOffer) {
     return null;
@@ -73,7 +108,11 @@ function OffersContainer({ offers }) {
                     }`}
                     aria-hidden={!isCurrent}
                   >
-                    <OfferCard offer={offer} />
+                    <OfferCard
+                      offer={offer}
+                      restaurantDate={restaurantDate}
+                      onClick={() => setSelectedOffer(offer)}
+                    />
                   </div>
                 );
               })}
@@ -85,8 +124,18 @@ function OffersContainer({ offers }) {
           </div>
         </>
       ) : (
-        <OfferCard offer={currentOffer} />
+        <OfferCard
+          offer={currentOffer}
+          restaurantDate={restaurantDate}
+          onClick={() => setSelectedOffer(currentOffer)}
+        />
       )}
+
+      <OfferDetailsModal
+        offer={selectedOffer}
+        restaurantDate={restaurantDate}
+        onClose={handleCloseDetails}
+      />
     </div>
   );
 }

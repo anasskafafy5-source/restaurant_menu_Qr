@@ -1,4 +1,5 @@
 import { getCategoriesWithProducts } from "@/lib/data-service";
+import EmptyProductsMessage from "./EmptyProductsMessage";
 import FloatingCategoriesButton from "./FloatingCategoriesButton";
 import ProductsOfCategory from "./ProductsOfCategory";
 
@@ -6,7 +7,15 @@ async function ProductsByCategoryArea() {
   const categories = await getCategoriesWithProducts();
 
   if (!categories?.length) {
-    return null;
+    return (
+      <section
+        id="products-by-category"
+        aria-label="Products by category"
+        className="mx-auto max-w-6xl px-4 pb-14 pt-6 sm:px-6"
+      >
+        <EmptyProductsMessage />
+      </section>
+    );
   }
 
   return (

@@ -1,3 +1,4 @@
+import EmptyProductsMessage from "./EmptyProductsMessage";
 import ProductCardCollection from "./ProductCardCollection";
 import SectionHeading from "./SectionHeading";
 
@@ -20,9 +21,7 @@ function ProductsOfCategory({ category }) {
           categoryName={category.name}
         />
       ) : (
-        <p className="mt-5 text-center text-sm text-tertiary/50">
-          No products available in this category.
-        </p>
+        <EmptyProductsMessage categoryName={category.name} />
       )}
     </section>
   );

@@ -9,11 +9,11 @@ async function Header() {
       <HeaderImages cover={data.cover} logo={data.logo} name={data.name} />
 
       {/* Restaurant information */}
-      <div className="px-6 pb-8 pt-5 text-center">
-        <h1 className="font-serif text-2xl font-semibold tracking-tight text-tertiary sm:text-3xl">
+      <div className="px-6 pb-8 pt-5 text-center md:pb-10 md:pt-6">
+        <h1 className="font-serif text-2xl font-semibold tracking-tight text-tertiary sm:text-3xl md:text-4xl">
           {data.name}
         </h1>
-        <p className="mx-auto mt-1.5 max-w-sm text-sm leading-6 text-tertiary/60">
+        <p className="mx-auto mt-1.5 max-w-sm text-sm leading-6 text-tertiary/60 md:mt-2 md:max-w-xl md:text-base md:leading-7">
           {data.description}
         </p>
       </div>

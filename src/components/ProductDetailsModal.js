@@ -98,7 +98,7 @@ function ProductDetailsContent({ product, onClose }) {
         {product.description && (
           <p
             id={DESCRIPTION_ID}
-            className="mt-5 text-sm leading-6 text-tertiary/70 sm:text-base sm:leading-7"
+            className="mt-5 whitespace-pre-line break-words text-sm leading-6 text-tertiary/70 sm:text-base sm:leading-7"
           >
             {product.description}
           </p>

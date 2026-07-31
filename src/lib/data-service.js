@@ -31,10 +31,13 @@ export async function getSettings() {
 // }
 
 export async function getCategoriesWithProducts() {
-  const { data, error } = await supabase.from("categories").select(`
-    *,
-    products (*)
-  `);
+  const { data, error } = await supabase
+    .from("categories")
+    .select(`
+      *,
+      products (*)
+    `)
+    .order("created_at", { ascending: true });
 
   if (error) {
     throw new Error(
@@ -49,7 +52,8 @@ export async function getOffers() {
   const { data, error } = await supabase
     .from("offers")
     .select("*")
-    .eq("is_active", true);
+    .eq("is_active", true)
+    .order("created_at", { ascending: true });
 
   if (error) {
     throw new Error(`Failed to fetch offers: ${error.message}`);

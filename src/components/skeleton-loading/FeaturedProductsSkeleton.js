@@ -1,12 +1,12 @@
 function FeaturedCardSkeleton() {
   return (
     <li className="w-[78vw] max-w-[19rem] shrink-0 sm:w-72 lg:w-[19rem]">
-      <div className="h-full overflow-hidden rounded-3xl border border-tertiary/5 bg-white shadow-sm">
-        <div className="relative h-52 bg-tertiary/5">
+      <div className="flex h-96 flex-col overflow-hidden rounded-3xl border border-tertiary/5 bg-white shadow-sm">
+        <div className="relative h-52 shrink-0 bg-tertiary/5">
           <div className="absolute left-1/2 top-5 size-40 -translate-x-1/2 rounded-xl bg-tertiary/10" />
           <div className="absolute left-4 top-4 h-6 w-20 rounded-full bg-secondary/25" />
         </div>
-        <div className="flex items-start justify-between gap-4 p-5">
+        <div className="flex flex-1 items-start justify-between gap-4 p-5">
           <div className="min-w-0 flex-1">
             <div className="h-5 w-3/4 rounded-full bg-tertiary/10" />
             <div className="mt-2 h-4 w-full rounded-full bg-tertiary/10" />
